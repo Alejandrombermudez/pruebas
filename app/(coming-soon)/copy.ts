@@ -16,7 +16,6 @@ type Copy = {
   timer: string;
   completed: string;
   rights: string;
-  preview: string;
 };
 
 export const COPY: Record<Language, Copy> = {
@@ -29,7 +28,6 @@ export const COPY: Record<Language, Copy> = {
     timer: "Countdown to 1 January 2027, Colombia time",
     completed: "The countdown is complete",
     rights: "All rights reserved",
-    preview: "Preview the website",
   },
   it: {
     language: "Lingua",
@@ -40,7 +38,6 @@ export const COPY: Record<Language, Copy> = {
     timer: "Conto alla rovescia al 1 gennaio 2027, ora della Colombia",
     completed: "Il conto alla rovescia è terminato",
     rights: "Tutti i diritti riservati",
-    preview: "Anteprima del sito",
   },
   es: {
     language: "Idioma",
@@ -51,7 +48,6 @@ export const COPY: Record<Language, Copy> = {
     timer: "Cuenta regresiva al 1 de enero de 2027, hora de Colombia",
     completed: "La cuenta regresiva ha terminado",
     rights: "Todos los derechos reservados",
-    preview: "Vista previa del sitio",
   },
 };
 

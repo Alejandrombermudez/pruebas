@@ -300,12 +300,6 @@ export default function ComingSoon() {
           {copy.launch}
         </time>
 
-        {/* El sitio completo vive en otro layout raíz: enlace normal, con recarga de página. */}
-        <a className="preview-link" href={`/preview?lang=${language}`}>
-          {copy.preview}
-          <ArrowIcon />
-        </a>
-
         <details className="contact-request">
           <summary>
             <MailIcon size={16} />

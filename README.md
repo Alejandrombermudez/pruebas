@@ -6,9 +6,9 @@ en EN/IT/ES, con logo animado en partículas y formulario vía Web3Forms.
 
 Rutas:
 
-- `/` — página "Coming Soon" (cuenta regresiva al 1 de enero de 2027), con un botón
-  "Vista previa del sitio".
-- `/preview` — el sitio completo.
+- `/` — página "Coming Soon" (cuenta regresiva al 1 de enero de 2027).
+- `/preview` — el sitio completo. No tiene enlace desde `/` y lleva `noindex`: solo
+  se accede conociendo la ruta.
 
 Cada ruta tiene su propio layout raíz (`app/(coming-soon)` y `app/(site)`), así que sus
 estilos no se mezclan; navegar entre ellas recarga la página.

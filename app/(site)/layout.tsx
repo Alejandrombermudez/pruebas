@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   title: "Vireo | smart by nature",
   description:
     "Industrial automation, commissioning, robotics and smart manufacturing. Vireo — smart by nature.",
+  // Vista previa privada: sin enlace desde el Coming Soon y fuera de los buscadores.
+  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
