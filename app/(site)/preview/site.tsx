@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { COPY, LANGUAGES } from "./copy";
 import type { Language } from "./copy";
 import Contact from "./contact-form";
 import HeroAnimation from "./hero-animation";
+import { prefersReducedMotion, stagger, useScrollReveal, useSectionWheel } from "./motion";
 import { About, Experience, Services } from "./sections";
 import { useLanguage } from "./use-language";
 
@@ -16,16 +18,24 @@ const NAV = [
   ["contact", "navContact"],
 ] as const;
 
+// Secciones con fondo oscuro: los puntos laterales cambian a color claro.
+const DARK_SECTIONS = new Set(["home", "contact"]);
+
 const LANGUAGE_LABELS: Record<Language, string> = {
   en: "English",
   it: "Italiano",
   es: "Español",
 };
 
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (update: () => void) => unknown;
+};
+
 export default function Site() {
   const [language, chooseLanguage] = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState<string>("home");
+  const [scrolled, setScrolled] = useState(false);
 
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -34,42 +44,73 @@ export default function Site() {
 
   const c = COPY[language];
 
+  useScrollReveal();
+  useSectionWheel();
+
   useEffect(() => {
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute("content", c.description);
   }, [c.description]);
 
-  // Resalta en el menú la sección visible.
+  // Altura real de la cabecera (--header-h): alinea el scroll por secciones bajo ella.
+  // El menú del móvil se superpone, así que no altera esta medida.
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    let first = true;
+    const observer = new ResizeObserver(() => {
+      document.documentElement.style.setProperty("--header-h", `${header.offsetHeight}px`);
+      // Con la medida provisional el navegador pudo alinear la página unos píxeles abajo.
+      if (first && !window.location.hash && window.scrollY > 0 && window.scrollY < header.offsetHeight) {
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+      first = false;
+    });
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
+
+  // Sección visible, progreso de lectura y estado de la cabecera.
   useEffect(() => {
     const sections = NAV.map(([id]) => document.getElementById(id)).filter(
       (section): section is HTMLElement => section !== null,
     );
     if (!sections.length) return;
 
-    function updateFromScroll() {
+    let raf = 0;
+
+    function update() {
+      raf = 0;
+      const header = headerRef.current;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      header?.style.setProperty("--progress", progress.toFixed(4));
+      setScrolled(window.scrollY > 8);
+
       if (clickLock.current) return;
 
-      const offset = (headerRef.current?.getBoundingClientRect().bottom ?? 0) + 60;
+      const offset = (header?.getBoundingClientRect().bottom ?? 0) + window.innerHeight * 0.3;
       let current = sections[0];
       sections.forEach((section) => {
         if (section.getBoundingClientRect().top <= offset) current = section;
       });
-
-      const atBottom =
-        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 10;
-      if (atBottom) current = sections[sections.length - 1];
+      if (window.scrollY >= max - 10) current = sections[sections.length - 1];
 
       setActive(current.id);
     }
 
-    window.addEventListener("scroll", updateFromScroll, { passive: true });
-    window.addEventListener("resize", updateFromScroll);
-    window.addEventListener("load", updateFromScroll);
+    function schedule() {
+      if (!raf) raf = requestAnimationFrame(update);
+    }
+
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
     return () => {
-      window.removeEventListener("scroll", updateFromScroll);
-      window.removeEventListener("resize", updateFromScroll);
-      window.removeEventListener("load", updateFromScroll);
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
       window.clearTimeout(clickTimer.current);
     };
   }, []);
@@ -98,14 +139,30 @@ export default function Site() {
     }, 1200);
   }
 
+  // Cambio de idioma con un fundido suave donde el navegador lo permite.
+  function switchLanguage(code: Language) {
+    if (code === language) return;
+    const doc = document as ViewTransitionDocument;
+    if (typeof doc.startViewTransition === "function" && !prefersReducedMotion()) {
+      doc.startViewTransition(() => flushSync(() => chooseLanguage(code)));
+    } else {
+      chooseLanguage(code);
+    }
+  }
+
   return (
     <>
       <a className="skip-link" href="#main-content">
         {c.skip}
       </a>
 
-      <header className="header" ref={headerRef}>
-        <a className="brand" href="#home" aria-label="Vireo — smart by nature">
+      <header className="header" ref={headerRef} data-scrolled={scrolled || undefined}>
+        <a
+          className="brand"
+          href="#home"
+          aria-label="Vireo — smart by nature"
+          onClick={() => onNavClick("home")}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element -- logo de 40px, sin necesidad de optimizar */}
           <img src="/img/logo-vireo-white.png" alt="" width={40} height={40} />
           <span>VIREO</span>
@@ -120,6 +177,10 @@ export default function Site() {
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
         >
+          <span className="menu-icon" aria-hidden="true">
+            <span />
+            <span />
+          </span>
           {c.menu}
         </button>
 
@@ -145,31 +206,77 @@ export default function Site() {
               lang={code}
               aria-label={LANGUAGE_LABELS[code]}
               aria-pressed={language === code}
-              onClick={() => chooseLanguage(code)}
+              onClick={() => switchLanguage(code)}
             >
               {code.toUpperCase()}
             </button>
           ))}
         </div>
+
+        <span className="scroll-progress" aria-hidden="true" />
       </header>
 
+      <nav
+        className="section-dots"
+        aria-label={c.sectionsLabel}
+        data-tone={DARK_SECTIONS.has(active) ? "on-dark" : "on-light"}
+      >
+        <ul>
+          {NAV.map(([id, key]) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                aria-current={active === id ? "location" : undefined}
+                onClick={() => onNavClick(id)}
+              >
+                <span className="dot-label">{c[key]}</span>
+                <span className="dot" aria-hidden="true" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
       <main id="main-content">
-        <section id="home" className="hero">
+        <section id="home" className="hero snap">
+          <div className="hero-bg" aria-hidden="true">
+            <span className="orb orb-1" />
+            <span className="orb orb-2" />
+          </div>
+
           <div className="hero-content">
-            <p className="eyebrow">{c.heroSmall}</p>
+            <p className="eyebrow hero-in" style={stagger(0)}>
+              {c.heroSmall}
+            </p>
             <h1>
-              <span>{c.hero1}</span>
-              <span>{c.hero2}</span>
-              <span>{c.hero3}</span>
+              {[c.hero1, c.hero2, c.hero3].map((line, index) => (
+                <span className="line" key={index}>
+                  <span style={stagger(index + 1, 120)}>{line}</span>
+                </span>
+              ))}
             </h1>
-            <p className="hero-text">{c.heroText}</p>
-            <a href="#contact" className="button" onClick={() => onNavClick("contact")}>
-              <span>{c.cta}</span>
-              <span aria-hidden="true">↗</span>
-            </a>
+            <p className="hero-text hero-in" style={stagger(5)}>
+              {c.heroText}
+            </p>
+            <div className="hero-in" style={stagger(6)}>
+              <a href="#contact" className="button" onClick={() => onNavClick("contact")}>
+                <span>{c.cta}</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
           </div>
 
           <HeroAnimation />
+
+          <a
+            className="scroll-cue hero-in"
+            href="#services"
+            style={stagger(9)}
+            onClick={() => onNavClick("services")}
+          >
+            <span className="mouse" aria-hidden="true" />
+            <span>{c.scrollHint}</span>
+          </a>
         </section>
 
         <Services c={c} />

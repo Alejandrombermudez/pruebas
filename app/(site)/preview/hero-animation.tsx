@@ -105,14 +105,17 @@ export default function HeroAnimation() {
         };
       }).sort((a, b) => a.z - b.z);
 
+      // Mezcla aditiva: donde se juntan partículas el logo brilla un poco más.
+      ctx.globalCompositeOperation = "lighter";
       projected.forEach((p) => {
-        ctx.globalAlpha = Math.min(1, p.alpha);
+        ctx.globalAlpha = Math.min(1, p.alpha * 0.85);
         ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       });
       ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "source-over";
     }
 
     function resize() {

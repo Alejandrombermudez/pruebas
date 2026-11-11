@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { Copy, Language } from "./copy";
+import { stagger } from "./motion";
 
 const CONTACT_ENDPOINT = "https://api.web3forms.com/submit";
 const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
@@ -113,14 +114,28 @@ export default function Contact({ c, language }: { c: Copy; language: Language }
   const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(c.whatsappMessage)}`;
 
   return (
-    <section id="contact" className="section contact">
+    <section id="contact" className="section contact snap">
+      <div className="contact-bg" aria-hidden="true" />
       <div>
-        <p className="eyebrow">{c.contactSmall}</p>
-        <h2>{c.contactTitle}</h2>
-        <p className="intro">{c.contactText}</p>
+        <p className="eyebrow" data-reveal="">
+          {c.contactSmall}
+        </p>
+        <h2 data-reveal="" style={stagger(1)}>
+          {c.contactTitle}
+        </h2>
+        <p className="intro" data-reveal="" style={stagger(2)}>
+          {c.contactText}
+        </p>
       </div>
 
-      <form id="contact-form" aria-busy={sending} onSubmit={onSubmit} noValidate>
+      <form
+        id="contact-form"
+        aria-busy={sending}
+        onSubmit={onSubmit}
+        noValidate
+        data-reveal=""
+        style={stagger(2)}
+      >
         <fieldset disabled={sending}>
           <legend className="sr-only">{c.contactTitle}</legend>
 

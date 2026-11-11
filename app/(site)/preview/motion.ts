@@ -1,0 +1,139 @@
+import { useEffect } from "react";
+import type { CSSProperties, PointerEvent } from "react";
+
+export function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/** Retraso escalonado para las animaciones de entrada (variable CSS --d). */
+export function stagger(index: number, step = 90): CSSProperties {
+  return { ["--d" as string]: `${index * step}ms` };
+}
+
+const REVEAL_OPTIONS: IntersectionObserverInit = {
+  threshold: 0.12,
+  rootMargin: "0px 0px -6% 0px",
+};
+
+/**
+ * Animaciones de entrada: cada elemento con [data-reveal] recibe [data-shown]
+ * la primera vez que entra en pantalla. Sin JavaScript, sin IntersectionObserver
+ * o con "reducir movimiento" todo queda visible desde el principio.
+ */
+export function useScrollReveal() {
+  useEffect(() => {
+    if (!("IntersectionObserver" in window) || prefersReducedMotion()) return;
+
+    const root = document.documentElement;
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        (entry.target as HTMLElement).dataset.shown = "";
+        observer.unobserve(entry.target);
+      }
+    }, REVEAL_OPTIONS);
+
+    document
+      .querySelectorAll<HTMLElement>("[data-reveal]:not([data-shown])")
+      .forEach((element) => observer.observe(element));
+    root.dataset.motion = "on";
+
+    return () => {
+      observer.disconnect();
+      delete root.dataset.motion;
+    };
+  }, []);
+}
+
+/** Ejecuta `start` cuando el elemento aparece (mismo criterio que useScrollReveal). */
+export function onFirstReveal(element: Element, start: () => void) {
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    observer.disconnect();
+    start();
+  }, REVEAL_OPTIONS);
+  observer.observe(element);
+  return () => observer.disconnect();
+}
+
+const WHEEL_QUERY =
+  "(min-width: 769px) and (min-height: 620px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
+
+/**
+ * Scroll por secciones en escritorio: cada gesto de rueda o touchpad lleva a la
+ * sección siguiente o anterior. Si una sección es más alta que la pantalla, se
+ * recorre con normalidad hasta su borde y después salta a la siguiente.
+ * El teclado, la barra de scroll y el táctil usan el scroll-snap de CSS.
+ */
+export function useSectionWheel() {
+  useEffect(() => {
+    const query = window.matchMedia(WHEEL_QUERY);
+    let lockUntil = 0;
+
+    const headerHeight = () =>
+      parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 0;
+
+    function onWheel(event: WheelEvent) {
+      if (!query.matches || event.ctrlKey || event.deltaY === 0) return;
+      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      if ((event.target as Element | null)?.closest?.("textarea")) return;
+
+      const now = performance.now();
+      // Inercia del mismo gesto: se ignora hasta que el touchpad se detiene.
+      if (now < lockUntil) {
+        event.preventDefault();
+        lockUntil = Math.max(lockUntil, now + 180);
+        return;
+      }
+
+      const sections = [...document.querySelectorAll<HTMLElement>("main > section")];
+      if (!sections.length) return;
+
+      const top = headerHeight();
+      const available = window.innerHeight - top;
+      let index = 0;
+      sections.forEach((section, i) => {
+        if (section.getBoundingClientRect().top <= top + 4) index = i;
+      });
+      const current = sections[index];
+      const rect = current.getBoundingClientRect();
+      // El relleno vacío de la sección no cuenta como "contenido pendiente".
+      const style = getComputedStyle(current);
+      const slackBottom = parseFloat(style.paddingBottom) + 4;
+      const slackTop = parseFloat(style.paddingTop) + 4;
+
+      let target: number | null = null;
+      if (event.deltaY > 0) {
+        if (rect.bottom > window.innerHeight + slackBottom) return; // queda contenido abajo
+        const next = sections[index + 1];
+        if (next) target = next.getBoundingClientRect().top + window.scrollY - top;
+      } else {
+        if (rect.top < top - slackTop) return; // queda contenido arriba
+        const previous = sections[index - 1];
+        if (previous) {
+          const box = previous.getBoundingClientRect();
+          const start = box.top + window.scrollY - top;
+          // Sección alta: se llega a su final para seguir leyendo hacia arriba.
+          target = box.height > available + 4 ? start + box.height - available : start;
+        }
+      }
+      if (target === null) return;
+
+      event.preventDefault();
+      lockUntil = now + 900;
+      window.scrollTo({ top: Math.round(target), behavior: "smooth" });
+    }
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    return () => window.removeEventListener("wheel", onWheel);
+  }, []);
+}
+
+/** Luz que sigue al puntero dentro de una tarjeta (variables CSS --mx / --my). */
+export function trackSpotlight(event: PointerEvent<HTMLElement>) {
+  if (event.pointerType === "touch") return;
+  const card = event.currentTarget;
+  const box = card.getBoundingClientRect();
+  card.style.setProperty("--mx", `${event.clientX - box.left}px`);
+  card.style.setProperty("--my", `${event.clientY - box.top}px`);
+}

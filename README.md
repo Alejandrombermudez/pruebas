@@ -10,6 +10,10 @@ Rutas:
 - `/preview` — el sitio completo. No tiene enlace desde `/` y lleva `noindex`: solo
   se accede conociendo la ruta.
 
+En `/preview`, en escritorio cada gesto de rueda o touchpad lleva a la sección siguiente
+(`useSectionWheel` en `motion.ts`, más `scroll-snap` en CSS), con puntos de navegación a la
+derecha. Las animaciones de entrada usan `[data-reveal]` y se desactivan con "reducir movimiento".
+
 Cada ruta tiene su propio layout raíz (`app/(coming-soon)` y `app/(site)`), así que sus
 estilos no se mezclan; navegar entre ellas recarga la página.
 
