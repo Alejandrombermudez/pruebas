@@ -1,3 +1,4 @@
+// Generado a partir de Vireo_Website/script.js y del script inline de index.html.
 export const LANGUAGES = ["en", "it", "es"] as const;
 export type Language = (typeof LANGUAGES)[number];
 
@@ -5,135 +6,276 @@ export function isLanguage(value: unknown): value is Language {
   return LANGUAGES.includes(value as Language);
 }
 
-export const LAUNCH_DATE = "2027-01-01T00:00:00-05:00";
+const en = {
+  skip: "Skip to content",
+  menu: "Menu",
+  navHome: "Home",
+  navServices: "Services",
+  navAbout: "About",
+  navExperience: "Experience",
+  navContact: "Contact",
+  heroSmall: "INDUSTRIAL AUTOMATION & SMART MANUFACTURING",
+  hero1: "Automation",
+  hero2: "Efficiency",
+  hero3: "Performance",
+  heroText: "Engineering and automation solutions to improve industrial efficiency, reliability and performance.",
+  cta: "LET’S TALK",
+  servicesSmall: "WHAT WE DO",
+  s1: "Industrial Automation",
+  s1Text: "PLC, HMI, SCADA and robotics designed to improve process control, production reliability and operational efficiency.",
+  s2: "Commissioning & Optimization",
+  s2Text: "From installation to production: commissioning, troubleshooting and process optimization to reduce downtime and improve plant performance.",
+  s3: "Industry 4.0 & Resource Efficiency",
+  s3Text: "Turn industrial data into actionable insights. Monitor production, energy consumption and process losses to identify opportunities to reduce waste and use resources more efficiently.",
+  s4: "Industrial Software & Integration",
+  s4Text: "Connect machines, systems and production data through tailored industrial software. Modernize existing equipment and support its continued use through system upgrades.",
+  aboutSmall: "ABOUT VIREO",
+  aboutTitle: "Technology focused on industry.",
+  aboutLead: "Industrial knowledge. Practical solutions. A long-term perspective.",
+  about1: "Vireo brings together industrial automation, engineering and technology, backed by over 20 years of professional experience in international industrial projects.",
+  about2: "Our approach combines PLC and SCADA systems, robotics, industrial software and on-site commissioning. We work alongside production and maintenance teams to connect technology with the realities of the plant.",
+  about3: "From new production lines to existing equipment, we focus on reliable processes, better performance and more efficient use of energy and materials. Monitoring, optimization and system upgrades help identify waste and support the continued use of industrial assets.",
+  aboutValue1: "Experience",
+  aboutYearsTitle: "Years of professional experience",
+  aboutYearsText: "Industrial expertise developed through international projects.",
+  experienceSmall: "EXPERIENCE",
+  experienceTitle: "Industrial expertise across sectors.",
+  experienceText: "Vireo brings together professional experience across different manufacturing environments, connecting automation, robotics and industrial software with the specific needs of each production process.",
+  experienceText2: "From continuous processes to automated handling and packaging, our approach starts with understanding how the plant works, where reliability matters and what can be improved.",
+  e1: "Food & Beverage",
+  e1Text: "Automation for processing, production and handling systems, integrating machine control, monitoring and coordination between equipment to support consistent and reliable operation.",
+  e2: "Petrochemical",
+  e2Text: "Experience with industrial control and process monitoring in environments where operational continuity, reliability and accurate information are essential.",
+  e3: "Automotive",
+  e3Text: "Programming, robotics and system integration for automated production cells, material handling and coordinated manufacturing operations.",
+  e4: "Automated Warehousing & Intralogistics",
+  e4Text: "Automation of storage, retrieval and internal material flows, connecting handling equipment and control systems to improve coordination and traceability.",
+  e5: "Brick & Ceramic Manufacturing",
+  e5Text: "Experience across extrusion, cutting, drying, firing and robotic handling for brick and roof tile production, with attention to process continuity and production performance.",
+  e6: "Packaging & Palletizing",
+  e6Text: "Integration of packaging, conveying and robotic palletizing systems, coordinating end-of-line operations to support product flow and production efficiency.",
+  contactSmall: "CONTACT",
+  contactTitle: "Let’s talk about your project.",
+  contactText: "Tell us what you need. Contact Vireo to explore our services and find the right solution for your business.",
+  whatsapp: "Contact us on WhatsApp",
+  whatsappMessage: "Hello Vireo, I would like information about your services.",
+  name: "Your name",
+  email: "Your email",
+  company: "Your company",
+  message: "Your message",
+  namePlaceholder: "Your name",
+  emailPlaceholder: "Your email address",
+  companyPlaceholder: "Company name",
+  placeholder: "Tell us briefly about your project.",
+  send: "Send email",
+  sending: "Sending…",
+  sent: "Message successfully sent to Vireo.",
+  error: "Unable to confirm sending. Please try again later.",
+  rateLimited: "Too many requests. Please try again later.",
+  nameRequired: "Please enter your name.",
+  nameShort: "Please enter a name with at least 2 characters.",
+  emailRequired: "Please enter your email address.",
+  emailInvalid: "Please enter a valid email address.",
+  messageRequired: "Please enter your message.",
+  messageShort: "Please enter a message with at least 10 characters.",
+  rights: "All rights reserved.",
+  language: "Language",
+  navLabel: "Main navigation",
+  description: "Industrial automation, commissioning, robotics and smart manufacturing. Vireo S.A.S. — smart by nature.",
+  value2: "Completed projects",
+  value3: "Resource optimization",
+  projectsTitle: "Completed projects",
+  projectsText: "Over 110 projects completed throughout our professional experience: automation, integration, revamping and commissioning of industrial systems.",
+  resourcesTitle: "Areas of optimization",
+  resourcesText: "Energy, materials and processes: three areas where monitoring and practical engineering help reduce waste and improve resource use.",
+  servicesLines: [
+    "Smarter processes",
+    "Better performance"
+  ]
+};
 
-type Copy = {
-  language: string;
-  label: string;
-  title: [string, string];
-  units: [string, string, string, string];
-  launch: string;
-  timer: string;
-  completed: string;
-  rights: string;
+export type Copy = Omit<typeof en, "servicesLines"> & {
+  servicesLines: [string, string];
+};
+
+const it: Copy = {
+  skip: "Vai al contenuto",
+  menu: "Menu",
+  navHome: "Home",
+  navServices: "Servizi",
+  navAbout: "Chi siamo",
+  navExperience: "Esperienza",
+  navContact: "Contatti",
+  heroSmall: "AUTOMAZIONE INDUSTRIALE E PRODUZIONE INTELLIGENTE",
+  hero1: "Automazione",
+  hero2: "Efficienza",
+  hero3: "Prestazioni",
+  heroText: "Soluzioni di ingegneria e automazione per migliorare l’efficienza, l’affidabilità e le prestazioni industriali.",
+  cta: "PARLIAMONE",
+  servicesSmall: "COSA FACCIAMO",
+  s1: "Automazione industriale",
+  s1Text: "PLC, HMI, SCADA e robotica per migliorare il controllo dei processi, l’affidabilità produttiva e l’efficienza operativa.",
+  s2: "Messa in servizio e ottimizzazione",
+  s2Text: "Dall’installazione alla produzione: messa in servizio, risoluzione dei problemi e ottimizzazione dei processi per ridurre i fermi e migliorare le prestazioni degli impianti.",
+  s3: "Industria 4.0 ed efficienza delle risorse",
+  s3Text: "Trasformiamo i dati industriali in informazioni utili per decidere. Monitoriamo produzione, consumi energetici e perdite di processo per individuare opportunità di riduzione degli sprechi e utilizzo più efficiente delle risorse.",
+  s4: "Software industriale e integrazione",
+  s4Text: "Colleghiamo macchine, sistemi e dati di produzione attraverso software industriale su misura. Modernizziamo le apparecchiature esistenti con aggiornamenti che ne favoriscono il mantenimento in servizio.",
+  aboutSmall: "CHI È VIREO",
+  aboutTitle: "Tecnologia al servizio dell’industria.",
+  aboutLead: "Competenza industriale. Soluzioni concrete. Una visione a lungo termine.",
+  about1: "Vireo unisce automazione industriale, ingegneria e tecnologia, con il supporto di oltre 20 anni di esperienza professionale in progetti industriali internazionali.",
+  about2: "Il nostro approccio combina sistemi PLC e SCADA, robotica, software industriale e messa in servizio sul campo. Lavoriamo al fianco dei team di produzione e manutenzione per collegare la tecnologia alle esigenze reali dello stabilimento.",
+  about3: "Dalle nuove linee agli impianti esistenti, puntiamo su processi affidabili, prestazioni migliori e un utilizzo più efficiente di energia e materiali. Monitoraggio, ottimizzazione e aggiornamenti dei sistemi aiutano a individuare gli sprechi e a mantenere in servizio gli impianti.",
+  aboutValue1: "Esperienza",
+  aboutYearsTitle: "Anni di esperienza professionale",
+  aboutYearsText: "Competenze industriali maturate attraverso progetti internazionali.",
+  experienceSmall: "ESPERIENZA",
+  experienceTitle: "Competenze industriali in diversi settori.",
+  experienceText: "Vireo unisce esperienza professionale in diversi contesti produttivi, collegando automazione, robotica e software industriale alle esigenze specifiche di ogni processo.",
+  experienceText2: "Dai processi continui alla movimentazione automatizzata e al confezionamento, partiamo dalla conoscenza dell’impianto per individuare le esigenze di affidabilità e le opportunità di miglioramento.",
+  e1: "Alimentare e bevande",
+  e1Text: "Automazione dei sistemi di processo, produzione e movimentazione, integrando controllo macchina, monitoraggio e coordinamento tra le apparecchiature per favorire un funzionamento costante e affidabile.",
+  e2: "Petrolchimico",
+  e2Text: "Esperienza nel controllo industriale e nel monitoraggio dei processi in contesti in cui continuità operativa, affidabilità e precisione delle informazioni sono essenziali.",
+  e3: "Automotive",
+  e3Text: "Programmazione, robotica e integrazione di sistemi per celle produttive automatizzate, movimentazione dei materiali e coordinamento delle operazioni di produzione.",
+  e4: "Magazzini automatici e intralogistica",
+  e4Text: "Automazione dello stoccaggio, del prelievo e dei flussi interni di materiali, collegando sistemi di movimentazione e controllo per migliorare il coordinamento e la tracciabilità.",
+  e5: "Laterizi e ceramica",
+  e5Text: "Esperienza nelle fasi di estrusione, taglio, essiccazione, cottura e movimentazione robotizzata per la produzione di mattoni e tegole, con attenzione alla continuità del processo e alle prestazioni produttive.",
+  e6: "Confezionamento e pallettizzazione",
+  e6Text: "Integrazione di sistemi di confezionamento, trasporto e pallettizzazione robotizzata, coordinando le operazioni di fine linea per favorire il flusso dei prodotti e l’efficienza produttiva.",
+  contactSmall: "CONTATTI",
+  contactTitle: "Parliamo del tuo progetto.",
+  contactText: "Raccontaci di cosa hai bisogno. Contatta Vireo per scoprire i nostri servizi e trovare la soluzione più adatta alla tua azienda.",
+  whatsapp: "Contattaci su WhatsApp",
+  whatsappMessage: "Buongiorno Vireo, vorrei informazioni sui vostri servizi.",
+  name: "Il tuo nome",
+  email: "La tua email",
+  company: "La tua azienda",
+  message: "Il tuo messaggio",
+  namePlaceholder: "Il tuo nome",
+  emailPlaceholder: "Il tuo indirizzo email",
+  companyPlaceholder: "Nome dell’azienda",
+  placeholder: "Raccontaci brevemente il tuo progetto.",
+  send: "Invia email",
+  sending: "Invio in corso…",
+  sent: "Messaggio inviato correttamente a Vireo.",
+  error: "Non è stato possibile confermare l’invio. Riprova più tardi.",
+  rateLimited: "Troppe richieste. Riprova più tardi.",
+  nameRequired: "Inserisci il tuo nome.",
+  nameShort: "Inserisci un nome di almeno 2 caratteri.",
+  emailRequired: "Inserisci il tuo indirizzo email.",
+  emailInvalid: "Inserisci un indirizzo email valido.",
+  messageRequired: "Inserisci il tuo messaggio.",
+  messageShort: "Inserisci un messaggio di almeno 10 caratteri.",
+  rights: "Tutti i diritti riservati.",
+  language: "Lingua",
+  navLabel: "Navigazione principale",
+  description: "Automazione industriale, messa in servizio, robotica e produzione intelligente. Vireo S.A.S. — smart by nature.",
+  value2: "Progetti realizzati",
+  value3: "Ottimizzazione delle risorse",
+  projectsTitle: "Progetti realizzati",
+  projectsText: "Oltre 110 progetti realizzati nel corso della nostra esperienza professionale: automazione, integrazione, revamping e messa in servizio di sistemi industriali.",
+  resourcesTitle: "Aree di ottimizzazione",
+  resourcesText: "Energia, materiali e processi: tre aree in cui monitoraggio e ingegneria applicata aiutano a ridurre gli sprechi e migliorare l’uso delle risorse.",
+  servicesLines: [
+    "Processi più intelligenti",
+    "Prestazioni migliori"
+  ]
+};
+
+const es: Copy = {
+  skip: "Ir al contenido",
+  menu: "Menú",
+  navHome: "Inicio",
+  navServices: "Servicios",
+  navAbout: "Nosotros",
+  navExperience: "Experiencia",
+  navContact: "Contacto",
+  heroSmall: "AUTOMATIZACIÓN INDUSTRIAL Y PRODUCCIÓN INTELIGENTE",
+  hero1: "Automatización",
+  hero2: "Eficiencia",
+  hero3: "Rendimiento",
+  heroText: "Soluciones de ingeniería y automatización para mejorar la eficiencia, la confiabilidad y el rendimiento industrial.",
+  cta: "HABLEMOS",
+  servicesSmall: "QUÉ HACEMOS",
+  s1: "Automatización industrial",
+  s1Text: "PLC, HMI, SCADA y robótica para mejorar el control de los procesos, la confiabilidad de la producción y la eficiencia operativa.",
+  s2: "Puesta en marcha y optimización",
+  s2Text: "Desde la instalación hasta la producción: puesta en marcha, diagnóstico y solución de problemas, y optimización de procesos para reducir las paradas y mejorar el rendimiento de las plantas.",
+  s3: "Industria 4.0 y eficiencia de los recursos",
+  s3Text: "Transformamos los datos industriales en información útil para tomar decisiones. Monitoreamos la producción, el consumo energético y las pérdidas del proceso para identificar oportunidades de reducir desperdicios y utilizar los recursos de manera más eficiente.",
+  s4: "Software industrial e integración",
+  s4Text: "Conectamos máquinas, sistemas y datos de producción mediante software industrial a medida. Modernizamos los equipos existentes con actualizaciones que permiten mantenerlos en servicio.",
+  aboutSmall: "SOBRE VIREO",
+  aboutTitle: "Tecnología enfocada en la industria.",
+  aboutLead: "Conocimiento industrial. Soluciones prácticas. Una visión a largo plazo.",
+  about1: "Vireo combina automatización industrial, ingeniería y tecnología, respaldadas por más de 20 años de experiencia profesional en proyectos industriales internacionales.",
+  about2: "Nuestro enfoque integra sistemas PLC y SCADA, robótica, software industrial y puesta en marcha en campo. Trabajamos junto a los equipos de producción y mantenimiento para conectar la tecnología con las necesidades reales de la planta.",
+  about3: "Desde nuevas líneas hasta equipos existentes, nos enfocamos en procesos confiables, mejor rendimiento y un uso más eficiente de energía y materiales. El monitoreo, la optimización y las actualizaciones permiten identificar desperdicios y mantener los activos industriales en servicio.",
+  aboutValue1: "Experiencia",
+  aboutYearsTitle: "Años de experiencia profesional",
+  aboutYearsText: "Conocimiento industrial desarrollado en proyectos internacionales.",
+  experienceSmall: "EXPERIENCIA",
+  experienceTitle: "Experiencia industrial en distintos sectores.",
+  experienceText: "Vireo combina experiencia profesional en diferentes entornos de producción, conectando automatización, robótica y software industrial con las necesidades específicas de cada proceso.",
+  experienceText2: "Desde procesos continuos hasta la manipulación automatizada y el empaque, partimos del conocimiento de la planta para identificar las necesidades de confiabilidad y las oportunidades de mejora.",
+  e1: "Alimentos y bebidas",
+  e1Text: "Automatización de sistemas de procesamiento, producción y manipulación, integrando control de máquinas, monitoreo y coordinación entre equipos para favorecer una operación constante y confiable.",
+  e2: "Petroquímica",
+  e2Text: "Experiencia en control industrial y monitoreo de procesos en entornos donde la continuidad operativa, la confiabilidad y la precisión de la información son esenciales.",
+  e3: "Automotriz",
+  e3Text: "Programación, robótica e integración de sistemas para celdas de producción automatizadas, manipulación de materiales y coordinación de las operaciones de manufactura.",
+  e4: "Almacenes automáticos e intralogística",
+  e4Text: "Automatización del almacenamiento, la recuperación y los flujos internos de materiales, conectando equipos de manipulación y sistemas de control para mejorar la coordinación y la trazabilidad.",
+  e5: "Ladrillos, tejas y cerámica",
+  e5Text: "Experiencia en extrusión, corte, secado, cocción y manipulación robotizada para la producción de ladrillos y tejas, con atención a la continuidad del proceso y al rendimiento productivo.",
+  e6: "Empaque y paletizado",
+  e6Text: "Integración de sistemas de empaque, transporte y paletizado robotizado, coordinando las operaciones de final de línea para favorecer el flujo de productos y la eficiencia de producción.",
+  contactSmall: "CONTACTO",
+  contactTitle: "Hablemos de tu proyecto.",
+  contactText: "Cuéntanos qué necesitas. Contacta con Vireo para conocer nuestros servicios y encontrar la solución más adecuada para tu empresa.",
+  whatsapp: "Contáctanos por WhatsApp",
+  whatsappMessage: "Hola Vireo, quisiera información sobre sus servicios.",
+  name: "Tu nombre",
+  email: "Tu correo",
+  company: "Tu empresa",
+  message: "Tu mensaje",
+  namePlaceholder: "Tu nombre",
+  emailPlaceholder: "Tu dirección de correo",
+  companyPlaceholder: "Nombre de la empresa",
+  placeholder: "Cuéntanos brevemente sobre tu proyecto.",
+  send: "Enviar correo",
+  sending: "Enviando…",
+  sent: "Mensaje enviado correctamente a Vireo.",
+  error: "No se ha podido confirmar el envío. Inténtalo más tarde.",
+  rateLimited: "Demasiadas solicitudes. Inténtalo más tarde.",
+  nameRequired: "Escribe tu nombre.",
+  nameShort: "Escribe un nombre de al menos 2 caracteres.",
+  emailRequired: "Escribe tu dirección de correo.",
+  emailInvalid: "Escribe una dirección de correo válida.",
+  messageRequired: "Escribe tu mensaje.",
+  messageShort: "Escribe un mensaje de al menos 10 caracteres.",
+  rights: "Todos los derechos reservados.",
+  language: "Idioma",
+  navLabel: "Navegación principal",
+  description: "Automatización industrial, puesta en marcha, robótica y manufactura inteligente. Vireo S.A.S. — smart by nature.",
+  value2: "Proyectos realizados",
+  value3: "Optimización de recursos",
+  projectsTitle: "Proyectos realizados",
+  projectsText: "Más de 110 proyectos realizados a lo largo de nuestra experiencia profesional: automatización, integración, modernización y puesta en marcha de sistemas industriales.",
+  resourcesTitle: "Áreas de optimización",
+  resourcesText: "Energía, materiales y procesos: tres áreas donde el monitoreo y la ingeniería aplicada ayudan a reducir desperdicios y mejorar el uso de los recursos.",
+  servicesLines: [
+    "Procesos más inteligentes",
+    "Mejor rendimiento"
+  ]
 };
 
 export const COPY: Record<Language, Copy> = {
-  en: {
-    language: "Language",
-    label: "INDUSTRIAL AUTOMATION & SMART MANUFACTURING",
-    title: ["Something new", "is taking shape"],
-    units: ["DAYS", "HOURS", "MINUTES", "SECONDS"],
-    launch: "1 JANUARY 2027",
-    timer: "Countdown to 1 January 2027, Colombia time",
-    completed: "The countdown is complete",
-    rights: "All rights reserved",
-  },
-  it: {
-    language: "Lingua",
-    label: "AUTOMAZIONE INDUSTRIALE E PRODUZIONE INTELLIGENTE",
-    title: ["Qualcosa di nuovo", "sta prendendo forma"],
-    units: ["GIORNI", "ORE", "MINUTI", "SECONDI"],
-    launch: "1 GENNAIO 2027",
-    timer: "Conto alla rovescia al 1 gennaio 2027, ora della Colombia",
-    completed: "Il conto alla rovescia è terminato",
-    rights: "Tutti i diritti riservati",
-  },
-  es: {
-    language: "Idioma",
-    label: "AUTOMATIZACIÓN INDUSTRIAL Y PRODUCCIÓN INTELIGENTE",
-    title: ["Algo nuevo", "está tomando forma"],
-    units: ["DÍAS", "HORAS", "MINUTOS", "SEGUNDOS"],
-    launch: "1 ENERO 2027",
-    timer: "Cuenta regresiva al 1 de enero de 2027, hora de Colombia",
-    completed: "La cuenta regresiva ha terminado",
-    rights: "Todos los derechos reservados",
-  },
-};
-
-export type ContactStatus = "idle" | "sending" | "sent" | "error" | "rateLimited";
-
-type ContactCopy = {
-  title: string;
-  name: string;
-  email: string;
-  message: string;
-  placeholder: string;
-  send: string;
-  sending: string;
-  sent: string;
-  error: string;
-  rateLimited: string;
-};
-
-export const CONTACT_COPY: Record<Language, ContactCopy> = {
-  en: {
-    title: "Follow what’s coming",
-    name: "Your name",
-    email: "Your email",
-    message: "Your company",
-    placeholder: "Company name",
-    send: "Send email",
-    sending: "Sending…",
-    sent: "Message successfully sent to Vireo.",
-    error: "Unable to confirm sending. Please try again later.",
-    rateLimited: "Too many requests. Please try again later.",
-  },
-  it: {
-    title: "Segui le novità in arrivo",
-    name: "Il tuo nome",
-    email: "La tua email",
-    message: "La tua azienda",
-    placeholder: "Nome dell’azienda",
-    send: "Invia email",
-    sending: "Invio in corso…",
-    sent: "Messaggio inviato correttamente a Vireo.",
-    error: "Non è stato possibile confermare l’invio. Riprova più tardi.",
-    rateLimited: "Troppe richieste. Riprova più tardi.",
-  },
-  es: {
-    title: "Sigue lo que viene",
-    name: "Tu nombre",
-    email: "Tu correo",
-    message: "Tu empresa",
-    placeholder: "Nombre de la empresa",
-    send: "Enviar correo",
-    sending: "Enviando…",
-    sent: "Mensaje enviado correctamente a Vireo.",
-    error: "No se ha podido confirmar el envío. Inténtalo más tarde.",
-    rateLimited: "Demasiadas solicitudes. Inténtalo más tarde.",
-  },
-};
-
-export const VALIDATION_COPY: Record<
-  Language,
-  {
-    nameRequired: string;
-    nameShort: string;
-    emailRequired: string;
-    emailInvalid: string;
-    companyRequired: string;
-  }
-> = {
-  en: {
-    nameRequired: "Please enter your name.",
-    nameShort: "Please enter a name with at least 2 characters.",
-    emailRequired: "Please enter your email address.",
-    emailInvalid: "Please enter a valid email address.",
-    companyRequired: "Please enter your company name.",
-  },
-  it: {
-    nameRequired: "Inserisci il tuo nome.",
-    nameShort: "Inserisci un nome di almeno 2 caratteri.",
-    emailRequired: "Inserisci il tuo indirizzo email.",
-    emailInvalid: "Inserisci un indirizzo email valido.",
-    companyRequired: "Inserisci il nome della tua azienda.",
-  },
-  es: {
-    nameRequired: "Escribe tu nombre.",
-    nameShort: "Escribe un nombre de al menos 2 caracteres.",
-    emailRequired: "Escribe tu dirección de correo.",
-    emailInvalid: "Escribe una dirección de correo válida.",
-    companyRequired: "Escribe el nombre de tu empresa.",
-  },
+  en: en as Copy,
+  it,
+  es,
 };

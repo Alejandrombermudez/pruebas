@@ -12,8 +12,9 @@ const openSauce = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Vireo | Coming Soon",
-  description: "Something new is taking shape. Vireo S.A.S. — smart by nature.",
+  title: "Vireo | smart by nature",
+  description:
+    "Industrial automation, commissioning, robotics and smart manufacturing. Vireo — smart by nature.",
 };
 
 export const viewport: Viewport = {

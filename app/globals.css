@@ -1,559 +1,483 @@
-:root {
-  --vireo-blue-dark:#06183F;
-  --vireo-green-light:#BCF494;
-  --vireo-blue:#039EDC;
-  --vireo-green:#39D87F;
-  --white:#FFFFFF
-}
+/* VIREO — palette e impaginazione del modello originale */
+/* La nuova sezione Esperienza è definita in fondo al file. */
+:root{--vireo-blue-dark:#06183F;--vireo-green-light:#BCF494;--vireo-blue:#039EDC;--vireo-green:#39D87F;--white:#fff;--light-gray:#F5F7F8;--dark-gray:#1B1F24}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;scroll-padding-top:100px}body{font-family:inherit;background:var(--white);color:var(--dark-gray);line-height:1.6}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button{cursor:pointer}button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}:focus-visible{outline:2px solid var(--vireo-blue);outline-offset:5px}::selection{background:var(--vireo-green-light);color:var(--vireo-blue-dark)}.skip-link{position:fixed;top:-100px;left:20px;z-index:2000;padding:12px;background:var(--vireo-green-light);color:var(--vireo-blue-dark)}.skip-link:focus{top:12px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.header{position:sticky;top:0;z-index:1000;width:100%;background:var(--vireo-blue-dark);color:var(--white);padding:20px 6%;display:flex;justify-content:space-between;align-items:center;gap:25px}.brand{display:flex;align-items:center;gap:12px;font-size:30px;font-weight:600;letter-spacing:4px;color:white}.brand img{width:42px;height:42px;object-fit:contain}.header nav{display:flex;align-items:center;gap:35px}.header nav a{color:white;font-size:15px;font-weight:400;transition:color .3s}.header nav a:hover{color:var(--vireo-green-light)}.languages{display:flex;align-items:center;gap:3px}.languages button{background:none;border:0;color:var(--vireo-green-light);font-size:13px;font-weight:600;min-height:44px;min-width:35px}.languages button:hover,.languages button[aria-pressed="true"]{color:white}.menu-toggle{display:none}.header :focus-visible,#contact :focus-visible,footer :focus-visible{outline-color:var(--vireo-green-light)}
+.hero{min-height:88vh;padding:80px 8% 100px;display:flex;align-items:center;background:linear-gradient(135deg,var(--vireo-blue-dark) 0%,#0A285E 55%,#083B75 100%);color:white;position:relative;overflow:hidden}.hero::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:var(--vireo-green);opacity:.12;right:-120px;top:-100px}.hero-content{max-width:900px;position:relative;z-index:2}.eyebrow{color:var(--vireo-blue);font-size:14px;font-weight:600;letter-spacing:2px;margin-bottom:15px;line-height:1.8}.hero .eyebrow{color:var(--vireo-green-light);margin-bottom:25px}.hero h1{font-size:clamp(48px,7vw,92px);line-height:1.02;font-weight:600;letter-spacing:-2px;margin-bottom:35px}.hero h1 span{display:block;color:white}.slogan{color:var(--vireo-green-light);font-size:32px;font-weight:600;letter-spacing:1.5px;margin-bottom:20px}.hero-text{max-width:650px;font-size:21px;color:#E7EDF5;margin-bottom:40px}.hero-mark{display:none}.explore{position:absolute;bottom:28px;left:8%;display:flex;align-items:center;gap:20px;font-size:12px;color:#DDE5EF;z-index:2}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:25px;padding:15px 30px;min-height:50px;background:var(--vireo-green);color:var(--vireo-blue-dark);border:0;font-weight:600;letter-spacing:1px;border-radius:4px;transition:background .3s,transform .3s}.button:hover{background:var(--vireo-green-light);transform:translateY(-2px)}.button span:last-child{font-size:20px}.button:disabled{opacity:.5;cursor:wait;transform:none}
+.section{padding:110px 8%}section h2{font-size:clamp(34px,5vw,58px);line-height:1.1;color:var(--vireo-blue-dark);font-weight:600;letter-spacing:-1px;margin-bottom:45px;max-width:850px}.section-heading{margin-bottom:35px}.intro{max-width:850px;font-size:21px;color:#4B535C;line-height:1.8;margin-bottom:25px}.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:25px;max-width:1100px}.service{padding:40px;background:var(--light-gray);border-left:4px solid var(--vireo-green);transition:transform .3s,border-color .3s}.service:hover{transform:translateY(-5px);border-left-color:var(--vireo-blue)}.service h3{font-size:25px;color:var(--vireo-blue-dark);margin-bottom:15px;font-weight:600}.service p{color:#5A626B;font-size:17px;max-width:500px}.number{display:block;color:var(--vireo-blue);font-size:12px;letter-spacing:1px;margin-bottom:18px}
+#services,#experience{background:white}#about{background:var(--light-gray)}.about{display:block}.about .slogan{color:var(--vireo-blue);font-size:24px}.about-copy{max-width:850px}.about-copy p{font-size:21px;color:#4B535C;line-height:1.8;margin-bottom:25px}.location{font-size:15px;color:var(--vireo-blue-dark);margin-top:25px}.experience-list{max-width:1100px;display:grid;grid-template-columns:repeat(2,1fr);gap:25px}.experience-list article{padding:40px;background:var(--light-gray);border-left:4px solid var(--vireo-green)}.experience-list h3{font-size:25px;color:var(--vireo-blue-dark);margin-bottom:15px;font-weight:600}.experience-list p{font-size:17px;color:#5A626B;line-height:1.8}
+#contact{background:var(--vireo-blue-dark);color:white}.contact{display:grid;grid-template-columns:1fr 1fr;gap:70px}#contact h2{color:white}#contact .eyebrow{color:var(--vireo-green-light)}#contact .intro{font-size:20px;color:#DDE5EF;margin-bottom:30px}#contact .location{color:#DDE5EF;font-size:18px}.contact-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}fieldset{border:0;display:flex;flex-direction:column;gap:22px;min-width:0}label{display:block;font-size:12px;color:#DDE5EF}input,textarea{display:block;width:100%;margin-top:8px;background:rgba(255,255,255,.035);border:1px solid rgba(188,244,148,.3);color:white;padding:14px;font-size:16px;border-radius:0}textarea{resize:vertical;min-height:130px}textarea::placeholder{color:#9CA9BA;font-size:12px}form .button{align-self:flex-start}.honeypot{display:none}.contact-note{font-size:13px;line-height:1.8;color:var(--vireo-green-light);margin-top:20px;min-height:22px}.contact-note[data-state="error"],.contact-note[data-state="rateLimited"]{color:#ffbdbd}
+footer{background:#030D22;color:#9CA9BA;text-align:center;padding:30px 20px;font-size:14px;display:flex;align-items:center;justify-content:space-between;gap:20px}footer .brand{font-size:20px}footer p,footer>a:last-child{font-size:12px}
+@media(max-width:1100px){.header{gap:15px}.header nav{gap:18px}.header nav a{font-size:13px}.brand{font-size:25px}.contact{gap:40px}}
+@media(max-width:768px){html{scroll-padding-top:85px}.header{padding:14px 20px;flex-wrap:wrap;gap:8px}.brand{font-size:24px;letter-spacing:3px}.brand img{width:34px;height:34px}.menu-toggle{display:block;background:none;color:white;border:1px solid rgba(188,244,148,.3);padding:10px;min-height:44px;margin-left:auto;font-size:12px}.languages button{min-width:29px;font-size:12px}.header nav{display:none;order:4;width:100%;flex-direction:column;align-items:flex-start;gap:4px;padding:10px 0}.header nav.is-open{display:flex}.header nav a{font-size:14px;padding:8px 0}.hero{min-height:80vh;padding:70px 25px 85px}.hero h1{font-size:48px;letter-spacing:-1px}.hero-text{font-size:18px}.hero .eyebrow{font-size:12px}.slogan{font-size:26px}.explore{left:25px}.section{padding:75px 25px}section h2{font-size:38px;margin-bottom:35px}.services-grid,.experience-list{grid-template-columns:1fr;gap:20px}.service,.experience-list article{padding:30px}.service h3,.experience-list h3{font-size:22px}.about-copy p,.intro{font-size:18px}.contact{grid-template-columns:1fr;gap:30px}#contact .intro,#contact .location{font-size:18px}footer{flex-wrap:wrap}footer p{order:3;width:100%}}
+@media(max-width:480px){.hero{padding:60px 20px 85px}.hero h1{font-size:40px}.hero .eyebrow{font-size:12px;letter-spacing:1.5px}.section{padding:65px 20px}section h2{font-size:32px}.service,.experience-list article{padding:25px}.button{padding:14px 24px;font-size:14px}.contact-row{grid-template-columns:1fr}.brand{font-size:20px}.brand img{width:30px;height:30px}.languages button{min-width:27px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
-* {
-  box-sizing:border-box;
-  margin:0;
-  padding:0
+/* Logo a particelle interattivo sulla destra della Home. */
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px}
+.hero-content{min-width:0}
+.hero-mark{display:block;position:relative;z-index:2;min-width:0;width:100%;aspect-ratio:1}
+.hero-mark canvas{display:block;width:100%;height:100%}
+footer{justify-content:center}
+@media(min-width:769px){.hero h1{font-size:clamp(42px,5.2vw,80px)}.hero-text{font-size:19px}}
+@media(max-width:768px){.hero{grid-template-columns:1fr;gap:25px;padding-bottom:85px}.hero-mark{max-width:340px;justify-self:center}.hero-content{max-width:100%}}
+/* Elimina il semicerchio decorativo fisso nella Home */
+.hero::after {
+    display: none;
 }
-
-html,body {
-  min-width:280px;
-  min-height:100%;
-  background:var(--vireo-blue-dark)
-}
-
-body {
-  color:var(--white);
-  -webkit-font-smoothing:antialiased
-}
-
-button,a {
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation
-}
-
-a {
-  color:inherit;
-  text-decoration:none
-}
-
-button:focus-visible,a:focus-visible {
-  outline:2px solid var(--vireo-green-light);
-  outline-offset:6px
-}
-
-::selection {
-  background:var(--vireo-green-light);
-  color:var(--vireo-blue-dark)
-}
-
-.coming-soon {
-  min-height:100vh;
-  min-height:100svh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:74px 25px 35px;
-  position:relative;
-  overflow:hidden
-}
-
-.languages {
-  position:absolute;
-  top:20px;
-  right:25px;
-  display:flex;
-  gap:4px;
-  z-index:5
-}
-
+/* Lingue: bianco, verde quando selezionate */
 .languages button {
-  font-family:inherit;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:.06em;
-  color:var(--vireo-green-light);
-  background:transparent;
-  border:0;
-  min-width:44px;
-  min-height:44px;
-  padding:10px;
-  cursor:pointer;
-  position:relative
-}
-
-.languages button[aria-pressed=true] {
-  color:var(--white)
-}
-
-.languages button[aria-pressed=true]:after {
-  content:"";
-  position:absolute;
-  bottom:4px;
-  left:11px;
-  right:11px;
-  height:2px;
-  background:var(--vireo-green-light)
-}
-
-.content {
-  width:100%;
-  max-width:1100px;
-  text-align:center;
-  position:relative;
-  z-index:2
-}
-
-.logo {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  font-size:38px;
-  font-weight:600;
-  letter-spacing:7px;
-  margin-bottom:32px;
-  line-height:1.3;
-  gap:8px
-}
-
-.animated-logo {
-  display:block;
-  width:120px;
-  height:120px;
-  object-fit:contain;
-  animation:vireoLogo 7s ease-in-out infinite;
-  transform-origin:center;
-  will-change:transform
-}
-
-@keyframes vireoLogo {
-  0%,100% {
-  transform:translateY(2px) rotate(-5deg) scale(.97);
-  filter:drop-shadow(0 0 6px rgba(3,158,220,.14))
-}
-50% {
-  transform:translateY(-8px) rotate(5deg) scale(1.07);
-  filter:drop-shadow(0 0 17px rgba(57,216,127,.28))
-}
-
-}
-
-.label {
-  color:var(--vireo-green-light);
-  font-size:13px;
-  font-weight:600;
-  letter-spacing:3px;
-  margin-bottom:22px;
-  line-height:1.8
-}
-
-h1 {
-  font-size:clamp(48px,7vw,88px);
-  line-height:1.03;
-  font-weight:600;
-  letter-spacing:-2px;
-  margin-bottom:25px;
-  text-wrap:balance
-}
-
-.slogan {
-  color:var(--vireo-green-light);
-  font-size:30px;
-  font-weight:600;
-  letter-spacing:2px;
-  margin-bottom:23px;
-  line-height:1.4
-}
-
-.countdown {
-  display:flex;
-  justify-content:center;
-  gap:25px;
-  margin:0 auto 25px;
-  max-width:670px
-}
-
-.countdown>div {
-  flex:0 1 140px;
-  min-width:0;
-  padding:22px 16px;
-  border:1px solid rgba(188,244,148,.25);
-  background:rgba(255,255,255,.03)
-}
-
-.countdown span {
-  display:block;
-  font-size:42px;
-  font-weight:600;
-  line-height:1;
-  margin-bottom:10px;
-  font-variant-numeric:tabular-nums
-}
-
-.countdown small {
-  display:block;
-  color:var(--vireo-green-light);
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:2px;
-  line-height:1.6
-}
-
-.launch {
-  display:block;
-  font-size:15px;
-  font-weight:600;
-  letter-spacing:4px;
-  color:var(--vireo-blue);
-  margin-bottom:27px;
-  line-height:1.6
-}
-
-.launch-message {
-  color:var(--vireo-green-light);
-  font-size:24px;
-  line-height:1.4;
-  padding:23px 10px
-}
-
-.footer {
-  font-size:10px;
-  letter-spacing:2px;
-  color:rgba(255,255,255,.55);
-  line-height:1.8
-}
-
-@media(max-width:700px) {
-  
- .coming-soon {
-  padding:78px 20px 30px
-}
-
- .languages {
-  top:14px;
-  right:14px;
-  gap:0
-}
-
- .languages button {
-  font-size:11px
-}
-
- .logo {
-  font-size:30px;
-  letter-spacing:7px;
-  margin-bottom:26px;
-  gap:7px
-}
-
- .animated-logo {
-  width:100px;
-  height:100px
-}
-
- .label {
-  font-size:10px;
-  letter-spacing:2px;
-  line-height:1.8;
-  margin-bottom:23px
-}
-
- h1 {
-  font-size:clamp(34px,6.6vw,46px);
-  letter-spacing:-1px;
-  line-height:1.1;
-  margin-bottom:23px
-}
-
- .slogan {
-  font-size:24px;
-  letter-spacing:1.5px;
-  margin-bottom:21px
-}
-
- .countdown {
-  gap:8px;
-  max-width:490px;
-  margin-bottom:23px
-}
-
- .countdown>div {
-  flex:1 1 0;
-  padding:18px 5px
-}
-
- .countdown span {
-  font-size:29px;
-  margin-bottom:10px
-}
-
- .countdown small {
-  font-size:9px;
-  letter-spacing:1px
-}
-
- .launch {
-  font-size:12px;
-  letter-spacing:3px;
-  margin-bottom:20px
-}
-
- .footer {
-  font-size:9px;
-  letter-spacing:1px
-}
-
-}
-
-@media(max-width:370px) {
-  
- .coming-soon {
-  padding-inline:16px
-}
-
- h1 {
-  font-size:32px
-}
-
- .label {
-  font-size:9px;
-  letter-spacing:1.5px
-}
-
- .countdown small {
-  font-size:8px;
-  letter-spacing:.6px
-}
-
- .countdown span {
-  font-size:27px
-}
-
- .footer {
-  font-size:8px
-}
-
-}
-
-@media(min-width:701px) and (max-height:850px) {
-  
- .coming-soon {
-  padding-top:68px;
-  padding-bottom:26px
-}
-
- .animated-logo {
-  width:90px;
-  height:90px
-}
-
- .logo {
-  font-size:32px;
-  margin-bottom:22px;
-  gap:4px
-}
-
- .label {
-  font-size:11px;
-  margin-bottom:19px
-}
-
- h1 {
-  font-size:clamp(48px,6.5vw,70px);
-  margin-bottom:20px
-}
-
- .slogan {
-  font-size:26px;
-  margin-bottom:16px
-}
-
- .countdown>div {
-  padding:18px 15px
-}
-
- .countdown span {
-  font-size:36px
-}
-
- .countdown {
-  margin-bottom:20px
-}
-
- .launch {
-  margin-bottom:20px
-}
-
-}
-
-@media(prefers-reduced-motion:reduce) {
-  .animated-logo {
-  animation:none;
-  will-change:auto
-}
-* {
-  transition:none!important
-}
-
-}
-
-.contact-request {
-  max-width:540px;
-  margin:0 auto 28px;
-  text-align:left;
-  border-top:1px solid rgba(188,244,148,.22);
-  border-bottom:1px solid rgba(188,244,148,.22)
-}
-
-.contact-request summary {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  font-size:12px;
-  color:var(--vireo-green-light);
-  padding:16px 12px;
-  cursor:pointer;
-  list-style:none;
-  min-height:50px;
-  line-height:1.5
-}
-
-.contact-request summary::-webkit-details-marker {
-  display:none
-}
-
-.contact-request summary>span {
-  font-size:20px;
-  line-height:1;
-  transition:transform .2s
-}
-
-.contact-request[open] summary>span {
-  transform:rotate(45deg)
-}
-
-.contact-request summary:focus-visible {
-  outline:2px solid var(--vireo-green-light);
-  outline-offset:3px
-}
-
-.contact-request form {
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  padding:10px 15px 20px
-}
-
-.contact-request fieldset {
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  min-width:0;
-  border:0
-}
-
-.contact-honey {
-  display:none
-}
-
-.contact-note[data-state=sent] {
-  color:var(--vireo-green-light)
-}
-
-.contact-row {
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:16px
-}
-
-.contact-request label {
-  display:block;
-  font-size:10px;
-  color:rgba(255,255,255,.75);
-  letter-spacing:.03em;
-  line-height:1.5;
-  min-width:0
-}
-
-.contact-request input,.contact-request textarea {
-  display:block;
-  max-width:100%;
-  width:100%;
-  font-family:inherit;
-  font-size:14px;
-  color:var(--white);
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(188,244,148,.24);
-  border-radius:0;
-  padding:12px;
-  margin-top:7px
-}
-
-.contact-request input:focus-visible,.contact-request textarea:focus-visible {
-  outline:2px solid var(--vireo-green-light);
-  outline-offset:2px
-}
-
-.contact-request textarea {
-  resize:vertical;
-  min-height:100px
-}
-
-.contact-request textarea::placeholder {
-  color:rgba(255,255,255,.45);
-  font-size:12px
-}
-
-.contact-request button {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  min-height:46px;
-  padding:12px 17px;
-  font-family:inherit;
-  font-size:11px;
-  font-weight:600;
-  color:var(--vireo-blue-dark);
-  background:var(--vireo-green-light);
-  border:0;
-  cursor:pointer;
-  align-self:flex-start
-}
-
-.contact-request button:disabled {
-  cursor:not-allowed;
-  opacity:.45
-}
-
-.contact-note {
-  font-size:10px;
-  color:rgba(255,255,255,.7);
-  line-height:1.7
-}
-
-.contact-note:empty {
-  display:none
-}
-
-@media(max-width:700px) {
-  .contact-request {
-  margin-bottom:24px
-}
-.contact-request input,.contact-request textarea {
-  font-size:16px
-}
-.contact-request form {
-  padding:7px 8px 17px
-}
-.contact-request summary {
-  font-size:11px
-}
-
-}
-
-@media(max-width:370px) {
-  .contact-row {
-  grid-template-columns:1fr;
-  gap:14px
-}
-
+    color: #FFFFFF;
 }
 
+.languages button[aria-pressed="true"],
+.languages button:hover {
+    color: #BCF494;
+}
+
+/* Menu: bianco, verde al passaggio del mouse o al clic */
+.header nav a {
+    color: #FFFFFF;
+}
+
+.header nav a:hover,
+.header nav a:focus,
+.header nav a[aria-current] {
+    color: #BCF494;
+}
+/* Menu: bianco, sezione attiva verde */
+.header nav a {
+    color: #FFFFFF;
+}
+
+.header nav a.active,
+.header nav a:hover {
+    color: #BCF494;
+}
+/* Slogan accanto a VIREO, allineato al menu */
+.brand .brand-slogan {
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--vireo-green-light);
+    line-height: 1.6;
+    white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+    .brand .brand-slogan {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand {
+        flex-wrap: wrap;
+    }
+
+    .brand .brand-slogan {
+        flex-basis: 100%;
+        padding-left: 42px;
+        font-size: 11px;
+    }
+}
+.brand .brand-slogan {
+    color: #FFFFFF;
+}
+
+/* Servizi: icone e comparsa una sola volta. */
+#services .service { min-width: 0; }
+#services .service-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+#services .service-top .number { margin: 0; }
+#services .service-icon {
+    display: block;
+    flex: 0 0 40px;
+    color: var(--vireo-blue-dark);
+    transition: color .25s ease;
+}
+#services .service:hover .service-icon { color: var(--vireo-blue); }
+#services .service h3 { overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: no-preference) {
+    #services .service.reveal-pending { opacity: 0; transform: translateY(16px); }
+    #services .service.service-revealing {
+        animation: vireo-service-reveal .55s ease both;
+    }
+}
+@keyframes vireo-service-reveal {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@media (hover: none) {
+    #services .service:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #services .service { animation: none !important; opacity: 1; transform: none; }
+}
+
+/* About Vireo — nuovo layout con esperienza professionale. */
+
+#about{font-family:inherit;color:#06183F}
+#about *{box-sizing:border-box}
+#about.va-section{padding:30px 38px 50px;background:#F5F7F8}
+#about .va-controls{display:flex;justify-content:flex-end;gap:3px;margin-bottom:35px}
+#about .va-controls button{background:none;border:0;color:#06183F;padding:10px;min-height:44px;font-family:inherit;font-size:12px}
+#about .va-controls button[aria-pressed="true"]{background:#06183F;color:#BCF494}
+#about .va-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,2fr);gap:40px}
+#about .va-eyebrow{font-size:11px;letter-spacing:2px;color:#087299;margin:0 0 23px}
+#about h2{font-size:clamp(28px,3.7vw,43px);font-weight:600;line-height:1.12;letter-spacing:-1.4px;margin:0 0 22px;color:#06183F}
+#about .va-slogan{font-size:16px;color:#087299;margin:0 0 42px}
+#about ul{list-style:none;margin:0;padding:0}
+#about li{font-size:12px;color:#4B535C;padding:8px 0;display:flex;gap:10px;align-items:center}
+#about li::before{content:"";display:block;width:5px;height:5px;background:#39D87F;flex-shrink:0}
+#about .va-body{min-width:0}
+#about .va-lead{font-size:clamp(23px,3vw,32px);line-height:1.3;font-weight:600;letter-spacing:-.8px;color:#06183F;margin:0 0 25px}
+#about .va-body>p:not(.va-lead){font-size:15px;line-height:1.85;color:#4B535C;margin:0 0 18px}
+#about .va-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:35px}
+#about .va-card{min-width:0;padding:23px 18px;background:#fff;position:relative;overflow:hidden;border-top:3px solid #039EDC}
+#about .va-card.va-experience{background:#06183F;color:#fff;border-top-color:#06183F}
+#about .va-card.va-resources{border-top-color:#39D87F}
+#about .va-watermark{position:absolute;right:-8px;top:-5px;font-size:95px;font-weight:600;line-height:1;color:rgba(188,244,148,.08);pointer-events:none}
+#about .va-card strong{display:block;font-size:52px;line-height:1.2;color:#BCF494;font-weight:600;margin:0 0 28px;position:relative}
+#about .va-card-icon{display:flex;align-items:center;min-height:62px;margin-bottom:28px;color:#087299}
+#about .va-card h3{font-size:15px;line-height:1.45;letter-spacing:0;font-weight:600;margin:0 0 12px;color:inherit;position:relative}
+#about .va-card p{font-size:12px;line-height:1.8;color:#4B535C;margin:0;position:relative}
+#about .va-experience p{color:#d4deef}
+@media(max-width:700px){#about.va-section{padding:24px}#about .va-layout{grid-template-columns:1fr;gap:30px}#about .va-heading ul{display:flex;flex-wrap:wrap;gap:5px 20px}#about .va-slogan{margin-bottom:18px}#about .va-controls{margin-bottom:25px}}
+@media(max-width:480px){#about .va-cards{grid-template-columns:1fr}#about .va-card strong,#about .va-card-icon{margin-bottom:15px}#about h2{font-size:34px}}
+
+#services .service-top{justify-content:flex-start}
+#services .service .number{display:none}
+#about .va-heading .va-slogan{color:#087299;font-size:16px;line-height:1.6}
+@media(max-width:1000px){#about .va-layout{grid-template-columns:1fr;gap:30px}}
+/* ABOUT: stesse dimensioni delle altre sezioni */
+#about h2 {
+    font-size: clamp(34px, 5vw, 58px);
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+#about .va-lead {
+    font-size: 25px;
+    line-height: 1.5;
+}
+
+#about .va-body > p:not(.va-lead) {
+    font-size: 21px;
+    line-height: 1.8;
+}
+
+#about .va-card h3 {
+    font-size: 22px;
+}
+
+#about .va-card p {
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+#about .va-heading .va-slogan {
+    font-size: 24px;
+}
+
+/* SERVIZI: meno spazio verticale su computer */
+@media (min-width: 769px) {
+    #services {
+        padding-top: 55px;
+        padding-bottom: 55px;
+    }
+
+    #services .section-heading {
+        margin-bottom: 24px;
+    }
+
+    #services h2 {
+        margin-bottom: 24px;
+    }
+
+    #services .services-grid {
+        max-width: 100%;
+        gap: 18px;
+    }
+
+    #services .service {
+        padding: 24px 28px;
+    }
+
+    #services .service-top {
+        margin-bottom: 12px;
+    }
+
+    #services .service-icon {
+        width: 32px;
+        height: 32px;
+        flex-basis: 32px;
+    }
+
+    #services .service h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    #services .service p {
+        max-width: none;
+        font-size: 16px;
+        line-height: 1.65;
+    }
+}
+
+/* ABOUT: adattamento al cellulare */
+@media (max-width: 768px) {
+    #about h2 {
+        font-size: 38px;
+    }
+
+    #about .va-lead {
+        font-size: 22px;
+    }
+
+    #about .va-body > p:not(.va-lead) {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    #about h2 {
+        font-size: 32px;
+    }
+}
+/* About: titoli delle schede come nei Servizi */
+#about .va-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* About: descrizioni delle schede come nei Servizi */
+#about .va-card p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+}
+/* ETICHETTE: WHAT WE DO / ABOUT VIREO */
+#services .eyebrow,
+#about .va-eyebrow {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.8;
+    letter-spacing: 2px;
+    color: var(--vireo-blue);
+    margin-bottom: 15px;
+}
+
+/* TITOLI PRINCIPALI */
+#services h2,
+#about h2 {
+    font-size: clamp(18px, 4.2vw, 58px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+/* Elimina la dimensione imposta dal JavaScript sulle due righe */
+#services .services-title-line {
+    font-size: inherit !important;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+}
+
+/* TITOLI DELLE SCHEDE E FRASE INTRODUTTIVA ABOUT */
+#services .service h3,
+#about .va-card h3,
+#about .va-lead {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: normal;
+}
+
+/* DESCRIZIONI E PARAGRAFI */
+#services .service p,
+#about .va-body > p:not(.va-lead),
+#about .va-card p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+    letter-spacing: normal;
+}
+
+/* Stesso allineamento laterale delle due sezioni */
+#about.va-section {
+    padding: 55px 8%;
+}
+
+@media (max-width: 768px) {
+    #about.va-section {
+        padding: 65px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    #about.va-section {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+}
+/* Allineamento dei testi a sinistra */
+#about .va-heading,
+#about .va-body,
+#about .va-card {
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    #about.va-section {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    #about.va-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+/* Elenco About: stessa dimensione e peso dei paragrafi */
+#about .va-heading li {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+}
+
+/* ESPERIENZA — settori industriali, su righe orizzontali */
+#experience.experience-sectors {
+    padding: 55px 8%;
+    text-align: left;
+}
+#experience.experience-sectors .eyebrow {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.8;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+#experience.experience-sectors h2 {
+    max-width: 1100px;
+    font-size: clamp(18px, 4.2vw, 58px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 28px;
+    text-wrap: balance;
+}
+#experience .experience-intro {
+    max-width: 1100px;
+}
+#experience .experience-intro .intro {
+    max-width: none;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+    margin-bottom: 14px;
+    color: #4B535C;
+}
+#experience .sector-list {
+    border-top: 1px solid rgba(6, 24, 63, .18);
+}
+#experience .sector-row {
+    display: grid;
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.65fr);
+    column-gap: 60px;
+    row-gap: 12px;
+    padding: 26px 0;
+    border-bottom: 1px solid rgba(6, 24, 63, .18);
+}
+#experience .sector-row h3 {
+    min-width: 0;
+    margin: 0;
+    padding-left: 16px;
+    border-left: 3px solid var(--vireo-green);
+    color: var(--vireo-blue-dark);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+}
+#experience .sector-row p {
+    min-width: 0;
+    margin: 0;
+    color: #4B535C;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+    letter-spacing: normal;
+}
+@media (max-width: 1000px) {
+    #experience .sector-row { column-gap: 30px; }
+}
+@media (max-width: 768px) {
+    #experience.experience-sectors { padding: 65px 25px; }
+    #experience .sector-row { grid-template-columns: 1fr; padding: 24px 0; }
+}
+@media (max-width: 480px) {
+    #experience.experience-sectors { padding-right: 20px; padding-left: 20px; }
+}
+/* Esperienza: interazione discreta con il mouse */
+#experience .sector-row {
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+#experience .sector-row h3 {
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    #experience .sector-row:hover {
+        background-color: rgba(188, 244, 148, 0.12);
+        border-bottom-color: var(--vireo-green);
+    }
+
+    #experience .sector-row:hover h3 {
+        transform: translateX(6px);
+        color: var(--vireo-blue);
+    }
+}
+
+/* ABOUT — gentle scroll reveal; text remains visible without JavaScript. */
+@media (prefers-reduced-motion: no-preference) {
+  #about .va-pending { opacity: 0; transform: translateY(22px); }
+  #about .va-enter {
+    animation: va-about-enter 700ms cubic-bezier(.2,.65,.3,1) both;
+    animation-delay: var(--va-delay, 0ms);
+  }
+  #about .va-card { transition: box-shadow 250ms ease; }
+}
+@keyframes va-about-enter {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  #about .va-card:hover { box-shadow: 0 12px 28px rgba(6,24,63,.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #about .va-pending { opacity: 1; transform: none; }
+  #about .va-enter { animation: none; }
+}
+
+/* --- Añadido en la migración a Next.js --- */
+/* Título de Servicios: dos líneas completas (antes lo fijaba el JavaScript con estilos en línea). */
+#services h2 { max-width: 100%; text-wrap: initial; }
+.services-title-line { display: block; white-space: nowrap; }

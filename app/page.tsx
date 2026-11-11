@@ -1,5 +1,5 @@
-import ComingSoon from "./coming-soon";
+import Site from "./site";
 
 export default function Home() {
-  return <ComingSoon />;
+  return <Site />;
 }
