@@ -1,15 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
+import { openSauce } from "../fonts";
 import "./globals.css";
-
-const openSauce = localFont({
-  src: [
-    { path: "./fonts/open-sauce-sans-400.ttf", weight: "400", style: "normal" },
-    { path: "./fonts/open-sauce-sans-600.ttf", weight: "600", style: "normal" },
-  ],
-  display: "swap",
-  fallback: ["Arial", "sans-serif"],
-});
 
 export const metadata: Metadata = {
   title: "Vireo | smart by nature",
@@ -23,7 +14,7 @@ export const viewport: Viewport = {
   themeColor: "#06183F",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={openSauce.className}>
       <body>{children}</body>
