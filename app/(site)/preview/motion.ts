@@ -56,6 +56,84 @@ export function onFirstReveal(element: Element, start: () => void) {
   return () => observer.disconnect();
 }
 
+/* ---------- Desplazamiento animado entre secciones ---------- */
+
+const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+
+/** Duración según la distancia: ~1,1 s entre secciones contiguas, máximo 1,6 s. */
+const scrollDuration = (distance: number) => Math.min(1600, 900 + Math.abs(distance) * 0.25);
+
+let cancelCurrent: (() => void) | null = null;
+
+export const isScrollAnimating = () => cancelCurrent !== null;
+
+export function headerHeight() {
+  return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 0;
+}
+
+/** Posición de scroll que deja la sección justo debajo de la cabecera. */
+export function sectionScrollTop(section: Element) {
+  return section.getBoundingClientRect().top + window.scrollY - headerHeight();
+}
+
+/**
+ * Lleva la página a `top` con una animación suave y de duración controlada
+ * (el scroll "smooth" del navegador es demasiado rápido y no se puede ajustar).
+ * Se cancela si el usuario toca la pantalla, pulsa una tecla o hace clic.
+ * Devuelve la duración en ms.
+ */
+export function animateScrollTo(top: number, onDone?: () => void) {
+  cancelCurrent?.();
+
+  const root = document.documentElement;
+  const max = root.scrollHeight - window.innerHeight;
+  const target = Math.max(0, Math.min(Math.round(top), max));
+  const start = window.scrollY;
+  const distance = target - start;
+
+  if (Math.abs(distance) < 2 || prefersReducedMotion()) {
+    window.scrollTo({ top: target, behavior: "instant" });
+    onDone?.();
+    return 0;
+  }
+
+  const duration = scrollDuration(distance);
+  const startedAt = performance.now();
+  let raf = 0;
+
+  // El scroll-snap atraparía cada paso intermedio: se suspende durante la animación.
+  root.style.scrollSnapType = "none";
+  root.style.scrollBehavior = "auto";
+
+  const cleanup = () => {
+    cancelAnimationFrame(raf);
+    root.style.removeProperty("scroll-snap-type");
+    root.style.removeProperty("scroll-behavior");
+    window.removeEventListener("touchstart", cleanup);
+    window.removeEventListener("keydown", cleanup);
+    window.removeEventListener("mousedown", cleanup);
+    cancelCurrent = null;
+  };
+
+  const step = (now: number) => {
+    const t = Math.min((now - startedAt) / duration, 1);
+    window.scrollTo({ top: start + distance * easeInOutCubic(t), behavior: "instant" });
+    if (t < 1) {
+      raf = requestAnimationFrame(step);
+    } else {
+      cleanup();
+      onDone?.();
+    }
+  };
+
+  window.addEventListener("touchstart", cleanup, { passive: true });
+  window.addEventListener("keydown", cleanup);
+  window.addEventListener("mousedown", cleanup);
+  cancelCurrent = cleanup;
+  raf = requestAnimationFrame(step);
+  return duration;
+}
+
 const WHEEL_QUERY =
   "(min-width: 769px) and (min-height: 620px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 
@@ -70,17 +148,14 @@ export function useSectionWheel() {
     const query = window.matchMedia(WHEEL_QUERY);
     let lockUntil = 0;
 
-    const headerHeight = () =>
-      parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 0;
-
     function onWheel(event: WheelEvent) {
       if (!query.matches || event.ctrlKey || event.deltaY === 0) return;
       if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
       if ((event.target as Element | null)?.closest?.("textarea")) return;
 
       const now = performance.now();
-      // Inercia del mismo gesto: se ignora hasta que el touchpad se detiene.
-      if (now < lockUntil) {
+      // Durante la transición, y mientras dure la inercia del mismo gesto, se ignora la rueda.
+      if (isScrollAnimating() || now < lockUntil) {
         event.preventDefault();
         lockUntil = Math.max(lockUntil, now + 180);
         return;
@@ -106,7 +181,7 @@ export function useSectionWheel() {
       if (event.deltaY > 0) {
         if (rect.bottom > window.innerHeight + slackBottom) return; // queda contenido abajo
         const next = sections[index + 1];
-        if (next) target = next.getBoundingClientRect().top + window.scrollY - top;
+        if (next) target = sectionScrollTop(next);
       } else {
         if (rect.top < top - slackTop) return; // queda contenido arriba
         const previous = sections[index - 1];
@@ -120,8 +195,8 @@ export function useSectionWheel() {
       if (target === null) return;
 
       event.preventDefault();
-      lockUntil = now + 900;
-      window.scrollTo({ top: Math.round(target), behavior: "smooth" });
+      const duration = animateScrollTo(target);
+      lockUntil = now + duration + 150;
     }
 
     window.addEventListener("wheel", onWheel, { passive: false });

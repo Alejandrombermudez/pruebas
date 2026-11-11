@@ -1,12 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { MouseEvent } from "react";
 import { flushSync } from "react-dom";
 import { COPY, LANGUAGES } from "./copy";
 import type { Language } from "./copy";
 import Contact from "./contact-form";
 import HeroAnimation from "./hero-animation";
-import { prefersReducedMotion, stagger, useScrollReveal, useSectionWheel } from "./motion";
+import {
+  animateScrollTo,
+  prefersReducedMotion,
+  sectionScrollTop,
+  stagger,
+  useScrollReveal,
+  useSectionWheel,
+} from "./motion";
 import { About, Experience, Services } from "./sections";
 import { useLanguage } from "./use-language";
 
@@ -127,16 +135,30 @@ export default function Site() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
-  function onNavClick(id: string) {
+  // Enlaces internos: misma transición suave que el scroll por secciones.
+  function onNavClick(event: MouseEvent<HTMLAnchorElement>, id: string) {
+    const section = document.getElementById(id);
+    if (!section) return;
+    event.preventDefault();
+
     setActive(id);
     setMenuOpen(false);
 
-    // Durante el scroll suave no se recalcula la sección activa.
+    try {
+      const url = new URL(window.location.href);
+      url.hash = id;
+      window.history.replaceState(null, "", url);
+    } catch {}
+
+    // Durante la transición no se recalcula la sección activa.
     clickLock.current = true;
     window.clearTimeout(clickTimer.current);
-    clickTimer.current = window.setTimeout(() => {
+    const unlock = () => {
+      window.clearTimeout(clickTimer.current);
       clickLock.current = false;
-    }, 1200);
+    };
+    const duration = animateScrollTo(id === "home" ? 0 : sectionScrollTop(section), unlock);
+    clickTimer.current = window.setTimeout(unlock, duration + 300);
   }
 
   // Cambio de idioma con un fundido suave donde el navegador lo permite.
@@ -161,7 +183,7 @@ export default function Site() {
           className="brand"
           href="#home"
           aria-label="Vireo — smart by nature"
-          onClick={() => onNavClick("home")}
+          onClick={(event) => onNavClick(event, "home")}
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- logo de 40px, sin necesidad de optimizar */}
           <img src="/img/logo-vireo-white.png" alt="" width={40} height={40} />
@@ -191,7 +213,7 @@ export default function Site() {
               href={`#${id}`}
               className={active === id ? "active" : undefined}
               aria-current={active === id ? "location" : undefined}
-              onClick={() => onNavClick(id)}
+              onClick={(event) => onNavClick(event, id)}
             >
               {c[key]}
             </a>
@@ -227,7 +249,7 @@ export default function Site() {
               <a
                 href={`#${id}`}
                 aria-current={active === id ? "location" : undefined}
-                onClick={() => onNavClick(id)}
+                onClick={(event) => onNavClick(event, id)}
               >
                 <span className="dot-label">{c[key]}</span>
                 <span className="dot" aria-hidden="true" />
@@ -259,7 +281,7 @@ export default function Site() {
               {c.heroText}
             </p>
             <div className="hero-in" style={stagger(6)}>
-              <a href="#contact" className="button" onClick={() => onNavClick("contact")}>
+              <a href="#contact" className="button" onClick={(event) => onNavClick(event, "contact")}>
                 <span>{c.cta}</span>
                 <span aria-hidden="true">↗</span>
               </a>
@@ -272,7 +294,7 @@ export default function Site() {
             className="scroll-cue hero-in"
             href="#services"
             style={stagger(9)}
-            onClick={() => onNavClick("services")}
+            onClick={(event) => onNavClick(event, "services")}
           >
             <span className="mouse" aria-hidden="true" />
             <span>{c.scrollHint}</span>
